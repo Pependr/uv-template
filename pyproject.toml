@@ -1,5 +1,5 @@
 [project]
-name = "uv-project"
+name = "uvproject"
 version = "0.1.0"
 description = "Awesome description!"
 readme = "README.md"
@@ -24,7 +24,7 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-root = "src"
-module-name = "uv-project"
+module-name = "uvproject"
 source-include = ["tests/**", "README.md"]
 
 
