@@ -33,12 +33,7 @@ jobs:
             - name: "Collect coverage report"
               run: uv run pytest --cov --cov-report json
 
-            - name: "Prettify json report"
-              run: uv run -m json.tool coverage.json report.json
-
-            - name: "Upload report artifact"
-              uses: actions/upload-artifact@v7
-              with:
-                name: "Coverage report"
-                path: "report.json"
-                archive: false
+            - name: "Process report"
+              run: |
+                honk parse -p coverage.json -t "files/*/summary" map-map --header "files" --excluded-col "*_display" > $GITHUB_STEP_SUMMARY
+                honk parse -p coverage.json -t "files/*" group -i "missing_lines" -i "excluded_lines" | honk parse -m json map-map --header "files" > $GITHUB_STEP_SUMMARY
