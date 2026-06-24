@@ -1,9 +1,11 @@
 #!/bin/bash
 
+project = $(basename $PWD)
+
 uv init $1 --no-pin-python --vcs git --package
 
-mkdir -pv $"tests/{$PWD}/"
-printf 'def test_my_project() -> None:\n    assert "I <3 python"\n' >> $"tests/{$PWD}/test_{$PWD}.py"
+mkdir -pv $"tests/{$project}/"
+printf 'def test_my_project() -> None:\n    assert "I <3 python"\n' >> $"tests/{$project}/test_{$project}.py"
 
 uv python install $2
 
