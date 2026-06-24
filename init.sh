@@ -1,6 +1,6 @@
 #!/bin/bash
 
-project = $(basename $PWD)
+project="$(basename $PWD)"
 
 uv init $1 --no-pin-python --vcs git --package
 
