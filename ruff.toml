@@ -24,6 +24,9 @@ docstring-code-line-length = 100
 
 
 [lint]
+ignore = [
+    "EXE002"
+]
 ruff = { "parenthesize-tuple-in-subscript" = true }
 pylint = { "max-nested-blocks" = 4, "max-args" = 4 }
 pyupgrade = { "keep-runtime-typing" = true }

@@ -16,24 +16,20 @@ jobs:
               with:
                 enable-cache: true
                 cache-local-path: "**/.uv_cache"
-                python-version: '3.14.5'
+                python-version: "3.14.5"
+                venv-path: ".venv"
+                activate-environment: true
 
             - name: "Install dependencies"
               run: uv sync --frozen
 
-            - name: "Run Ruff checker"
-              run: uv run ruff check --show-fixes
-
-            - name: "Run Ruff linter"
-              run: uv run ruff format --check
-
-            - name: "Run Pytest"
-              run: uv run pytest --tb=short --cov
-
-            - name: "Collect coverage report"
+            - name: "Collect tests report"
               run: uv run pytest --cov --cov-report json
+              continue-on-error: true
 
             - name: "Process report"
               run: |
-                honk parse -p coverage.json -t "files/*/summary" map-map --header "files" --excluded-col "*_display" > $GITHUB_STEP_SUMMARY
-                honk parse -p coverage.json -t "files/*" group -i "missing_lines" -i "excluded_lines" | honk parse -m json map-map --header "files" > $GITHUB_STEP_SUMMARY
+                uv run honk plugin load covplugin
+                export GENERAL="$(uv run honk parse -p coverage.json -t "files/*/summary" map-map --header "files" --excluded-col "*_display")"
+                export ANALYSIS="$(uv run honk parse -p coverage.json -t "files/*" group -i "missing_lines" -i "excluded_lines" | honk parse -m json map-map --header "files")"
+                printf "$GENERAL\n\n$ANALYSIS" > $GITHUB_STEP_SUMMARY

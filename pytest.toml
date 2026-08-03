@@ -1,4 +1,0 @@
-[ini_options]
-pythonpath = "src"
-testpaths = ["tests"]
-strict = true

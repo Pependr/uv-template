@@ -1,15 +1,10 @@
-# /// script
-# requires-python = ">=3.14"
-# dependencies = ["honk-parser>=0.2.1"]
-# ///
-
 import honk
 import click
 
 import json
 import itertools
 
-from typing import Mapping, Callable, Sequence
+from collections.abc import Mapping, Callable, Sequence
 
 
 type Input = Mapping[str, Mapping[str, Sequence[int]]]
@@ -44,10 +39,7 @@ def compress(items: Sequence[int]) -> str:
 def _(data: Input, include: tuple[str, ...]) -> None:
     def pipe(items: Sequence[int]) -> str:
         return ", ".join(
-            [
-                compress(group)
-                for group in group_by(items, lambda a, b: b - a == 1)
-            ]
+            map(compress, group_by(items, lambda a, b: b - a == 1))
         )
 
     click.echo(
