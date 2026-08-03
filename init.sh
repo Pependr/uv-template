@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 project="$(basename $PWD)"
 
@@ -13,6 +13,5 @@ uv venv
 source .venv/bin/activate
 
 uv add pytest pytest-cov pytest-mock honk-parser --dev
-uv sync --dev
 
 unlink init.sh
