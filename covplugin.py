@@ -1,4 +1,4 @@
-# @https://raw.githubusercontent.com/Pependr/uv-template/refs/heads/master/covplugin.py
+#@https://raw.githubusercontent.com/Pependr/uv-template/refs/heads/master/covplugin.py
 import honk
 import click
 
